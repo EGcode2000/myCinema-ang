@@ -1,0 +1,59 @@
+<div class="container pt-3" *ngIf="shows">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Show list - Admin</h1>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <input type="text" list="autoComplete" class="form-control" [(ngModel)]="userFilter._id" placeholder="Search.." id="searchShows"
+          name="searchShows">
+        <datalist id="autoComplete">
+          <option [value]="show?._id" *ngFor="let show of shows | slice:0:5 | filterBy: userFilter">
+        </datalist>
+      </div>
+
+    </div>
+    <div class="container">
+      Admin:
+      <a [routerLink]="['/shows/add']">Add show</a>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="shows">
+  <div class="row jumbotron" *ngFor="let show of shows | filterBy: userFilter">
+    <div class="col-3">
+      <a [routerLink]="['/shows', show._id]">
+        <img [src]='show?.movieInfo[0].posterImagePath' alt="{{show.movieInfo[0].title}}" class="img-responsive img-thumbnail">
+      </a>
+    </div>
+    <div class="col-9 d-flex flex-column">
+      <div class="d-flex flex-column">
+        <a [routerLink]="['/shows', show._id]">
+          <h1>
+            {{show?._id}}
+          </h1>
+        </a>
+
+      </div>
+      <div class="d-flex flex-column">
+        <span class="font-weight-bold">Movie</span>
+        <a [routerLink]="['/movies', show?.movieInfo[0]._id]">
+          <span>{{show.movieInfo[0].title}}</span>
+        </a>
+      </div>
+
+      <div class="d-flex flex-column">
+        <span class="font-weight-bold">Theater</span>
+        <span>{{show?.theaterInfo[0].name}}</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span class="font-weight-bold">Date & time:</span>
+        <a [routerLink]="['/shows', show?._id]">
+          <span>{{getTime(show.dateTime)}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <p *ngIf="(shows | filterBy: userFilter).length === 0">No matching Shows</p>
+</div>

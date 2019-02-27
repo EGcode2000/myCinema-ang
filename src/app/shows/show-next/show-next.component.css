@@ -1,0 +1,19 @@
+body{
+    background-color: #306B34;
+    color: black;
+        
+}
+a.show-item{
+    text-decoration: none;
+    color: black;  
+}
+/*.show-item:before {
+    content: "";
+    display: block;
+    background: url("/assets/images/calendar-medium.png") no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 6px 0 0;
+}*/
+

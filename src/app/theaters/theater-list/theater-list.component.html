@@ -1,0 +1,13 @@
+<div class="container pt-3">
+ Admin: <a [routerLink]="['/theaters/add']">Add theater</a> 
+</div>
+<div class="container">
+  <div class="row jumbotron" *ngFor="let theater of theaters">
+    <div class="col-12 d-flex flex-column">
+      <h1>{{theater.name}}</h1>
+      <span>Number of rows: {{theater.rows}}</span>
+      <span>Number of columns: {{theater.columns}}</span>
+      <a [routerLink]="['/theaters/edit', theater._id]">Edit theater</a>
+    </div>
+  </div>
+</div>

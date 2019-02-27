@@ -1,0 +1,11 @@
+ <div class="container pt-3">
+   <div class="row jumbotron" *ngFor="let user of usersList">
+     <div class="col-12 d-flex flex-column">
+      <a [routerLink]="['/users', user._id]">
+        <h1>{{user.username}}</h1>
+      </a>
+       <span>first name: {{user.firstName}}</span>
+       <span>last name: {{user.lastName}}</span> 
+     </div>
+   </div>
+ </div>

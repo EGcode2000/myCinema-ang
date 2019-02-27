@@ -1,0 +1,55 @@
+<div class="container pt-3">
+  
+  <h2>Register</h2>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmitRegister()">
+    <div class="form-group">
+      <label for="txtUsernameSignup">Username:</label>
+      <input type="text" class="form-control" formControlName="username" [(ngModel)]="signupUser.username" id="txtUsernameSignup">
+      <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched" class="help-block">
+        <span *ngIf="signupForm.hasError('required', 'username')">This field is required!</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="emailSignup">Email:</label>
+      <input type="email" class="form-control" formControlName="email" [(ngModel)]="signupUser.email" id="emailSignup">
+      <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" class="help-block">
+        <span *ngIf="signupForm.hasError('email', 'email')">This email is invalid!</span>
+        <span *ngIf="signupForm.hasError('required', 'email')">This field is required!</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="passwordSignup">Password:</label>
+      <input type="password" class="form-control" formControlName="password" [(ngModel)]="signupUser.password" id="passwordSignup">
+      <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched" class="help-block">
+        <span *ngIf="signupForm.hasError('passwordLength', 'password')">Password length should be at least 8 chart long!</span>
+        <span *ngIf="signupForm.hasError('required', 'password')">This field is required!</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="txtFirstName">First name:</label>
+      <input type="text" class="form-control" formControlName="firstName" [(ngModel)]="signupUser.firstName" id="txtFirstName">
+      <span *ngIf="!signupForm.get('firstName').valid && signupForm.get('firstName').touched" class="help-block">
+        <span *ngIf="signupForm.hasError('required', 'firstName')">This field is required!</span>
+      </span>
+    </div>
+
+    <div class="form-group">
+      <label for="txtLastName">Last name:</label>
+      <input type="text" class="form-control" formControlName="lastName" [(ngModel)]="signupUser.lastName" id="txtLastName">
+      <span *ngIf="!signupForm.get('lastName').valid && signupForm.get('lastName').touched" class="help-block">
+        <span *ngIf="signupForm.hasError('required', 'lastName')">This field is required!</span>
+      </span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Register</button>
+    
+    <div *ngIf="errorMsg" class="help-block">
+      <span>{{errorMsg}}</span>
+    </div>
+
+  </form>
+</div>

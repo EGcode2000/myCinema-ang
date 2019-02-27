@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row d-flex justify-content-sm-between p-3">
+    <div class="col-sm-6">
+      <h1>Movie list - Admin</h1>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <input type="text" list="autoComplete" class="form-control" [(ngModel)]="userFilter.title" placeholder="Search.." id="searchMovies"
+          name="searchMovies">
+        <datalist id="autoComplete">
+          <option [value]="movie?.title" *ngFor="let movie of movies| slice:0:5 | filterBy: userFilter">
+        </datalist>
+      </div>
+
+    </div>
+  </div>
+
+  <a [routerLink]="['/movies/add']">Add movie</a>
+
+</div>
+<div class="container" *ngIf="movies">
+  <div class="row jumbotron" *ngFor="let movie of movies | filterBy: userFilter">
+    <div class="col-3">
+      <a [routerLink]="['/movies', movie._id]">
+        <img [src]='movie?.posterImagePath' alt="{{movie?.title}}" class="img-responsive img-thumbnail">
+      </a>
+    </div>
+    <div class="col-9 d-flex flex-column">
+      <div class="d-flex flex-column">
+        <a [routerLink]="['/movies', movie._id]">
+          <h1>
+            {{movie?.title}}
+          </h1>
+        </a>
+
+      </div>
+      <div class="d-flex flex-column">
+        <span *ngIf="movie?.isDisplaying" class="font-weight-bold text-success">Displaying</span>
+        <span *ngIf="!movie?.isDisplaying" class=" font-weight-bold text-danger">Not displaying</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span class="font-weight-bold">Movie duration:</span>
+        <span>{{movie?.durationInMin}} Minutes</span>
+      </div>
+      <div class="d-flex flex-column">
+        <span class="font-weight-bold">Release year</span>
+        <span>{{movie?.releaseYear}}</span>
+      </div>
+
+      <div class="d-flex flex-column">
+        <span class="font-weight-bold">Description</span>
+        <span>{{movie?.description}}</span>
+      </div>
+      <div class="d-flex flex-row justify-content-between mt-auto">
+        <a [routerLink]="['/movies/edit', movie._id]">
+          <button type="button" class="btn btn-warning">Edit movie</button>
+        </a>
+        <button type="button" class="btn btn-danger" (click)="deleteMovie(movie._id)">Delete movie</button>
+      </div>
+
+    </div>
+  </div>
+  <p *ngIf="(movies | filterBy: userFilter).length === 0">No matching Movies</p>
+</div>

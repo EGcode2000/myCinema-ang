@@ -1,0 +1,6 @@
+<div class="container pt-3" *ngIf="editTheater">
+  
+  <h2>Edit Theater</h2>
+  
+  <app-theater-form [theater]="editTheater" (submitedTheater)="onEditTheater($event)" ></app-theater-form>
+</div>

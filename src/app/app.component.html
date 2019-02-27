@@ -1,0 +1,46 @@
+<nav class="navbar navbar-dark sticky-top bg-dark">
+  <a class="navbar-brand" routerLink="">
+    myCinema<!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="myCinema">-->
+  </a>
+<nav>
+  <ul class="navbar-nav mr-auto d-flex flex-row">
+    <li class="nav-item" *ngIf="userIsAdmin">
+      <a class="nav-link ml-2" routerLink="movies">Movies</a>
+    </li>
+    <li class="nav-item" *ngIf="userIsAdmin">
+      <a class="nav-link ml-2" routerLink="theaters">Theater</a>
+    </li>
+    <li class="nav-item" *ngIf="userIsAdmin">
+      <a class="nav-link ml-2" routerLink="shows">Shows</a>
+    </li>
+    <li class="nav-item" *ngIf="userIsAdmin">
+      <a class="nav-link ml-2" routerLink="orders">Orders</a>
+    </li>   
+  </ul>
+</nav>
+<nav>
+  <ul class="navbar-nav d-flex flex-row">
+    <li class="nav-item" *ngIf="!userIsAuthenticated">
+        <a class="nav-link ml-2" routerLink="register">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="!userIsAuthenticated">
+        <a class="nav-link ml-2" routerLink="login" (click)="onLoginClick()">Login</a>
+      </li> 
+      <li class="nav-item" *ngIf="userIsAuthenticated">
+        <a class="nav-link ml-2" href="javascript:void(0)" (click)="onLogout()">logout</a>
+      </li>
+   
+  </ul>
+</nav>
+</nav>
+
+<div [class.d-none]="!isLoading" class="mt-4">
+  <div class="loader w-100 d-flex justify-content-center flex-column align-items-center" style="height: 70vh">
+    <div class="mb-4 spinner">
+    </div>
+    <h1>Loading...</h1>
+  </div>
+</div>
+<div  [class.d-none]="isLoading" class="router-output">
+  <router-outlet></router-outlet>
+</div>

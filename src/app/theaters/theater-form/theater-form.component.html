@@ -1,0 +1,29 @@
+<form [formGroup]="theaterForm" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" formControlName="name" [(ngModel)]="theater.name" id="name" name="name" required>
+    <span *ngIf="!theaterForm.get('name').valid && theaterForm.get('name').touched" class="help-block">
+      <span *ngIf="theaterForm.hasError('required', 'name')">This field is required!</span>
+    </span>
+  </div>
+  
+  <div class="form-group">
+    <label for="rows">Rows:</label>
+    <input type="number" class="form-control" formControlName="rows" [(ngModel)]="theater.rows" name ="rows" id="rows" required>
+    <span *ngIf="!theaterForm.get('rows').valid && theaterForm.get('rows').touched" class="help-block">
+      <span *ngIf="theaterForm.hasError('required', 'rows')">This field is required!</span>
+    </span>
+  </div>
+  
+  <div class="form-group">
+    <label for="columns">Columns:</label>
+    <input type="number" class="form-control" formControlName="columns" [(ngModel)]="theater.columns" name="columns" id="columns" required>
+    <span *ngIf="!theaterForm.get('columns').valid && theaterForm.get('columns').touched" class="help-block">
+      <span *ngIf="theaterForm.hasError('required', 'columns')">This field is required!</span>
+    </span> 
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!theaterForm.valid">Submit</button>
+
+</form>

@@ -1,0 +1,60 @@
+<div class="container pt-3" *ngIf="movie">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <h1>{{movie?.title}}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <img [src]='movie.posterImagePath' class="img-thumbnail" style="max-width: 100%;" alt="{{movie.title}}">
+        </div>
+        <div class="col-sm-6 d-flex flex-column">
+            <div class="embed-responsive embed-responsive-16by9 img-thumbnail">
+                <iframe id="youtubeIframe" class="embed-responsive-item" [src]="youtubeUrl" frameborder="0" allow="autoplay; encrypted-media"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="d-flex flex-column my-2">
+                <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between">
+                    <span class="d-flex flex-column justify-content-center justify-content-sm-start">
+                        <span class="descreption-label text-center text-sm-left font-weight-bold">Director</span>
+                        <span class="detail-value text-center text-sm-left">{{movie?.director}}</span>
+                    </span>
+
+                    <span class="d-flex flex-column justify-content-center justify-content-sm-start">
+                        <span class="descreption-label text-center text-sm-right font-weight-bold">Duration</span>
+                        <span class="detail-value text-center text-sm-right">{{movie?.durationInMin}} Minutes</span>
+                    </span>
+                </div>
+                <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-sm-between">
+                    <span class="d-flex flex-column justify-content-center justify-content-sm-start">
+                        <span class="descreption-label text-center text-sm-left font-weight-bold">Genres</span>
+                        <span class="detail-value text-center text-sm-left" *ngFor="let genre of movie?.genreInfo">{{genre.genre}}</span>
+                    </span>
+
+                    <span class="d-flex flex-column justify-content-center justify-content-sm-start">
+                        <span class="descreption-label text-center text-sm-right font-weight-bold">Release year</span>
+                        <span class="detail-value text-center text-sm-right">{{movie?.releaseYear}}</span>
+                    </span>
+                </div>
+                <span class="d-flex flex-column justify-content-center justify-content-sm-start">
+                    <span class="descreption-label text-center text-sm-left font-weight-bold">Description</span>
+                    <span class="detail-value text-center text-sm-left">{{movie?.description}}</span>
+                </span>
+            </div>
+            <div id="orderTickets" *ngIf="movieShowsSchedule?.length > 0">
+                <h4 class="text-center text-sm-left">Oreder tickets</h4>
+                <nav class="nav nav-pills d-flex flex-column flex-sm-row" *ngIf="movieShowsSchedule">
+                    <!-- I'm adding the active class to the selectedDate. see: angular conditional class https://stackoverflow.com/questions/35269179/angular-conditional-class-with-ngclass -->
+                    <a class="flex-sm-fill text-center nav-link mb-2" *ngFor="let date of movieShowsSchedule" (click)="showHours(getDateKey(date)[0])"
+                        href="javascript:void(0)" [class.active]="selectedDate == getDateKey(date)[0]">{{getDateKey(date)[1]}}</a>
+                </nav>
+
+                <div *ngIf="movieHourList">
+                    <button type="button" *ngFor="let time of movieHourList" value="{{getTimeKey(time)[1]}}" class="btn btn-success mr-3 mb-3" (click)="onClickShow(getTimeKey(time)[1])">{{getTimeKey(time)[0]}}</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

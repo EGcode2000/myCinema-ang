@@ -1,0 +1,12 @@
+body{
+    background-color: #1d1d48;    
+    color: white;
+}
+
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+  
+.help-block{
+  color: red;
+}

@@ -1,0 +1,63 @@
+  <!-- im using here the template driven approche
+        on other pages i will use teh reactivce form approche  
+  -->
+<form (ngSubmit)="onSubmitMovie()" #f="ngForm">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input type="text" class="form-control" [(ngModel)]="movie.title" id="title" name="title" required>
+    <span class="help-block" *ngIf="!f.controls.title?.valid && f.controls.title?.touched">Please enter a valid Title</span>
+  </div>
+  <div class="form-group">
+    <label for="director">Director:</label>
+    <input type="text" class="form-control" [(ngModel)]="movie.director" id="director" name="director" required>
+    <span class="help-block" *ngIf="!f.controls.director?.valid && f.controls.director?.touched">Please enter a valid Director</span>
+  </div>
+
+  <div class="form-group">
+    <label name="durationInMin">Duration in min:</label>
+    <input type="number" class="form-control" [(ngModel)]="movie.durationInMin" id="durationInMin" name="durationInMin" min="1" max="300" required>
+    <span class="help-block" *ngIf="!f.controls.durationInMin?.valid && f.controls.durationInMin?.touched">Please enter a valid number of minutes</span>
+  </div>
+
+  <div class="form-group" *ngIf="genreList">
+    <label for="moviesGenres">Movie Genres:</label>
+    <select multiple class="form-control" [(ngModel)]="this.movie.genreList" id="moviesGenres" name="moviesGenres" required>
+      <option *ngFor="let genre of genreList | async" [value]="genre?._id">{{genre?.genre}}</option>
+    </select>
+    <small id="moviesGenresHelp" class="form-text text-muted">Multiple select. Hold down the Ctrl (windows) / Command (Mac) button to select multiple options..</small>
+    <span class="help-block" *ngIf="!f.controls.moviesGenres?.valid && f.controls.moviesGenres?.touched">Please select a valid genre</span>
+  </div>
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea class="form-control" [(ngModel)]="movie.description" id="description" name="description" required></textarea>
+    <span class="help-block" *ngIf="!f.controls.description?.valid && f.controls.description?.touched">Please enter a valid Description</span>
+  </div>
+  <div class="form-group">
+    <label for="releaseYear">Release Year:</label>
+    <input type="number" class="form-control" [(ngModel)]="movie.releaseYear" id="releaseYear" name="releaseYear" min="1900" max="2030" required>
+    <span class="help-block" *ngIf="(!f.controls.releaseYear?.valid || f.controls.releaseYear?.errors?.min) && f.controls.releaseYear?.touched">Please enter a valid Release Year</span>
+  </div>
+  <div class="form-group">
+    <label for="youtubeTrailer">Youtube Trailer:</label>
+    <input type="text" class="form-control" [(ngModel)]="movie.youtubeTrailer" id="youtubeTrailer" name="youtubeTrailer" required>
+    <small id="youtubeTrailerHelp" class="form-text text-muted">Insert only the video id. e.g: youtube link: https://youtu.be/xrzXIaTt99U -> You enter: xrzXIaTt99U</small>
+    <span class="help-block" *ngIf="!f.controls.releaseYear?.valid && f.controls.releaseYear?.touched">Please enter a valid youtube</span>
+  </div>
+  <div class="form-group">
+    <label for="posterPic">Poster image:</label>
+    <input type="file" id="posterPic" class="form-control-file" ng2FileSelect [uploader]="uploaderPosterPic" id="posterPic" name="posterPic" [required]="'!edit'">
+    <span class="help-block" *ngIf="!edit &&  !f.controls.posterPic?.valid && f.controls.posterPic?.touched">Please enter a valid Poster Picture</span>
+  </div>
+  <div class="form-group">
+    <label for="widePic">Wide image:</label>
+    <input type="file" id="widePic" class="form-control-file" ng2FileSelect [uploader]="uploaderWidePic" id="widePic" name="widePic" [required]="'!edit'">
+    <span class="help-block" *ngIf="!edit && !f.controls.widePic?.value && f.controls.widePic?.touched">Please enter a valid wide Picture</span>
+  </div>
+
+  <div class="form-group">
+    <label for="isDisplaying" class="form-check-label form-inline">
+      <input class="form-check-input" type="checkbox" [(ngModel)]="movie.isDisplaying" id="isDisplaying" name="isDisplaying">Is displaying
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+</form>

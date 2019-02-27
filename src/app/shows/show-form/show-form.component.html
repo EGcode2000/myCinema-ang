@@ -1,0 +1,47 @@
+<form [formGroup]="showForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+
+    <label for="selectMovie">Movie:</label>
+    <select id="selectMovie" formControlName="selectMovie" class="form-control" [(ngModel)]="show._MovieId">
+      <option value="" selected>Select Movie</option>
+      <option *ngFor="let movie of movieList | async" value="{{movie._id}}">{{movie.title}} </option>
+    </select>
+    <span *ngIf="!showForm.get('selectMovie').valid && showForm.get('selectMovie').touched" class="help-block">
+      <span *ngIf="showForm.hasError('required', 'selectMovie')">This field is required!</span>
+    </span>
+  
+  </div>
+
+  <div class="form-group">
+    <label for="selectTheater">Theater:</label>
+    <select id="selectTheater" formControlName="selectTheater" class="form-control" [(ngModel)]="show._TheaterId">
+      <option value="" selected>Select Theater</option>
+      <option *ngFor="let theater of theaterList | async" value="{{theater._id}}">{{theater.name}} </option>
+    </select>
+    <span *ngIf="!showForm.get('selectTheater').valid && showForm.get('selectTheater').touched" class="help-block">
+      <span *ngIf="showForm.hasError('required', 'selectTheater')">This field is required!</span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="showDate">Show Date:</label>
+    <input type="date" class="form-control" formControlName="showDate" [(ngModel)]="date" id="showDate">
+    <span *ngIf="!showForm.get('showDate').valid && showForm.get('showDate').touched" class="help-block">
+      <span *ngIf="showForm.hasError('required', 'showDate')">This field is required!</span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="showTime">Show Hour:</label>
+    <input type="time" class="form-control" formControlName="showTime" [(ngModel)]="time" id="showTime">
+    <span *ngIf="!showForm.get('showTime').valid && showForm.get('showTime').touched" class="help-block">
+      <span *ngIf="showForm.hasError('required', 'showTime')">This field is required!</span>
+    </span>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="!showForm.valid">Submit</button>
+  <div *ngIf="errorMsg" class="help-block">
+    <span>{{errorMsg}}</span>
+  </div>
+</form>

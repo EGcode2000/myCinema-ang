@@ -1,0 +1,46 @@
+<div class="container pt-3" *ngIf="showObject">
+  <h1 class="d-flex justify-content-center">Order Tickets</h1>
+  <div class="row">
+      <div class="col-sm-6 d-flex flex-column  text-center text-sm-left">
+        <span class="font-weight-bold">Movie</span>
+        <span>{{showObject.movieInfo[0].title}}</span>
+      </div>
+      <div class="col-sm-6 d-flex flex-column text-center text-sm-right">
+          <span class="font-weight-bold">Date & Time</span>
+          <span>{{showDateTime}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 d-flex flex-column  text-center text-sm-left">
+          <span class="font-weight-bold">Theater</span>
+          <span>{{showObject.theaterInfo[0].name}}</span>
+        </div>
+        <div class="col-sm-6 d-flex flex-column text-center text-sm-right">
+            <span class="font-weight-bold">Available tickets</span>
+            <span>{{maxTicketsAvailable}}</span>
+          </div>
+      </div>
+  <div class="form-group row d-flex flex-column align-items-center">
+    <label for="numberOfTickets" class="col-sm-4  text-center font-weight-bold mb-2 mb-sm-0" >Number of tickets</label>
+    <input type="number" class="form-control col-sm-4 text-center mb-2 mb-sm-0" id="numberOfTickets" [(ngModel)]="numberOfTickets" value="numberOfTickets" min="1"
+      max="{{maxTicketsAvailable}}">
+      <p *ngIf="newOrder.ticketsPositions">Number of tickets chosen: {{newOrder.ticketsPositions.length}}</p>
+  </div>
+
+  <p class="text-center text-danger" *ngIf="validMessage">{{validMessage}}</p>
+
+  <div class="d-flex justify-content-center">
+    <canvas id="seatsCanvasMain" name="seatsCanvasMain" appTheaterMap [rowsNumber]="showObject.theaterInfo[0].rows" [colsNumber]="showObject.theaterInfo[0].columns"
+      [showTakenSeats]="showObject.showTakenSeats" [numberOfTickets]="numberOfTickets" (onSeatChange)="onSeatChange($event)"
+      style="border:1px solid black; margin: 0 !important;padding: 0 !important;"></canvas>
+
+  </div>
+  <div class="d-flex justify-content-center mt-4 mb-2">
+
+    <button type="button" class="btn btn-primary" (click)="onClickOrder()">order!</button>
+  </div>
+
+  <div *ngIf="errorMsg" class="help-block d-flex justify-content-center text-center">
+      <span>{{errorMsg}}</span>
+  </div>
+</div>

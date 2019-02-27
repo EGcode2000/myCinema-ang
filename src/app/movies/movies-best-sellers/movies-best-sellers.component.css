@@ -1,0 +1,17 @@
+.best-seller a{
+    text-decoration: none;
+    color: black;    
+}
+body{
+    background-color: #e72141;
+    color: black;    
+}
+/*#title-best-seller:before {
+    content: "";
+    display: block;
+    background: url("/assets/images/star.png") no-repeat;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0 6px 0 0;
+}*/

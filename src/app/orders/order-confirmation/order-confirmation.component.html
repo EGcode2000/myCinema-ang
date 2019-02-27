@@ -1,0 +1,77 @@
+<div class="container jumbotron pt-3" *ngIf="loadPage && orderObj">
+  
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <h1>Order Details</h1>
+    </div>
+  </div>
+  
+  <div class="row d-flex flex-column flex-sm-row">
+    <div class="col-sm-6 text-center text-sm-left d-flex flex-column">
+      <span class="font-weight-bold">Movie</span>
+      <span>{{orderObj?.showInfo[0].movieInfo[0].title}}</span>
+    </div>
+    
+    <div class="col-sm-6 text-center text-sm-right d-flex flex-column">
+      <span class="font-weight-bold">Theater</span>
+      <span>{{orderObj?.showInfo[0].theaterInfo[0].name}}</span>
+    </div>
+  </div>
+  
+  <div class="row d-flex flex-column flex-sm-row">
+    
+    <div class="col-sm-6 text-center text-sm-left d-flex flex-column">
+      <span class="font-weight-bold">Show time</span>
+      <span>{{getTime(orderObj?.showInfo[0].dateTime)}}</span>
+    </div>
+    
+    <div class="col-sm-6  text-center text-sm-right d-flex flex-column">
+      <span class="font-weight-bold">Order Id</span>
+      <span>{{orderObj?._id}}</span>
+    </div>
+
+  </div>
+  
+  <div class="row d-flex flex-column flex-sm-row">
+
+    <div class="col-sm-6 text-center text-sm-left d-flex flex-column">
+      <span class="font-weight-bold">Full Name</span>
+      <span>{{orderObj?.userInfo[0].firstName}} {{orderObj?.userInfo[0].lastName}}</span>
+
+    </div>
+
+    <div class="col-sm-6 text-center text-sm-right d-flex flex-column">
+      <span class="font-weight-bold">Email</span>
+      <span>{{orderObj?.userInfo[0].email}}</span>
+    </div>
+
+  </div>
+
+  <div class="row d-flex flex-column flex-sm-row">
+
+    <div class="col-sm-6 text-center text-sm-left d-flex flex-column">
+      <span class="font-weight-bold">Number of Tickets</span>
+      <span>{{orderObj?.numberOfTickets}}</span>
+    </div>
+
+    <div class="col-sm-6 text-center text-sm-right d-flex flex-column" *ngIf="ticketPositionsStrings">
+      <span class="font-weight-bold">Tickets Position</span>
+      <div *ngFor="let ticket of ticketPositionsStrings">
+        {{ticket}}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center my-3" *ngIf="orderObj">
+    <canvas id="seatsCanvasMain" name="seatsCanvasMain" appTheaterMap [rowsNumber]="orderObj?.showInfo[0].theaterInfo[0].rows"
+      [colsNumber]="orderObj?.showInfo[0].theaterInfo[0].columns" [showTakenSeats]="takenSeatsObj" style="border:1px solid black; margin: 0;padding: 0"></canvas>
+  </div>
+
+  <div class="row d-flex flex-column flex-sm-row">
+
+    <div class="col-12 d-flex justify-content-center">
+      <button class="btn btn-primary" (click)="onDoneClick()">Done</button>
+    </div>
+  </div>
+</div>
